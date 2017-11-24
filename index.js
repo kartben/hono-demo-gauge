@@ -4,6 +4,9 @@ const Influx = require('influx');
 
 var app = module.exports = express();
 
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 3000,
+    ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/gauge', express.static(__dirname + '/node_modules/gaugeJS/dist/'));
@@ -17,10 +20,7 @@ const influx = new Influx.InfluxDB({
 })
 
 influx.getDatabaseNames()
-  .then(names => { console.log(names) })
-
-
-
+  .then(names => { console.log(names) });
 
 app.get('/', function(req, res){
   res.render('index.html');
@@ -39,6 +39,6 @@ app.get('/power_consumption', function(req,res) {
 
 /* istanbul ignore next */
 if (!module.parent) {
-  app.listen(3000);
-  console.log('Express started on port 3000');
+  app.listen(port, ip);
+  console.log('Express listening on ' + ip + ':' + port);
 }
