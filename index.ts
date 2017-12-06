@@ -1,8 +1,8 @@
-const express = require('express');
-const path = require('path');
-const Influx = require('influx');
+import * as express from 'express';
+import * as path from 'path';
+import * as Influx from 'influx';
 
-var app = module.exports = express();
+const app = express();
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
@@ -17,10 +17,7 @@ app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 
 app.engine('html', require('ejs').renderFile);
 
-const influx = new Influx.InfluxDB({
-  host: influxdbhost, port: influxdbport,
-  database: 'kubecon',
-})
+const influx = new Influx.InfluxDB('http://' + influxdbhost + ':' + influxdbport + '/kubecon')
 
 influx.getDatabaseNames()
   .then(names => { console.log(names) });
