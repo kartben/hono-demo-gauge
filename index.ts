@@ -10,10 +10,8 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 var influxdbhost = process.env.INFLUXDB_PORT_8086_TCP_ADDR || 'influxdb-hono.192.168.64.2.nip.io/',
     influxdbport = process.env.INFLUXDB_PORT_8086_TCP_PORT || 80;
 
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/gauge', express.static(__dirname + '/node_modules/gaugeJS/dist/'));
-app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
+app.use('/gauge', express.static(__dirname + '/../node_modules/gaugeJS/dist/'));
+app.use('/jquery', express.static(__dirname + '/../node_modules/jquery/dist/'));
 
 app.engine('html', require('ejs').renderFile);
 
