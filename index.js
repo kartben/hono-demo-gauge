@@ -18,7 +18,7 @@ app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 app.engine('html', require('ejs').renderFile);
 
 const influx = new Influx.InfluxDB({
-  host: , port: ,
+  host: influxdbhost, port: influxdbport,
   database: 'kubecon',
 })
 
